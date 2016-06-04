@@ -1,0 +1,14 @@
+---
+- hosts: web-boostrap
+  user: brycemcd
+  sudo: no
+  tasks:
+    - file: path=/home/brycemcd/Data/notebooks state=directory mode=0755
+
+    #- name: download file from a file path
+      #sudo: yes
+      #get_url: url=http://repo.continuum.io/archive/Anaconda2-4.0.0-Linux-x86_64.sh dest=/usr/local/src/Anaconda2-4.0.0-Linux-x86_64.sh
+    - file: path=/usr/local/src/Anaconda2-4.0.0-Linux-x86_64.sh mode=0755 owner=brycemcd
+      sudo: yes
+
+    - command: /usr/local/src/Anaconda2-4.0.0-Linux-x86_64.sh -b

@@ -1,0 +1,19 @@
+- hosts: web-boostrap
+  user: brycemcd
+  sudo: no
+  tasks:
+    - name: install tmux conf
+      get_url: url=https://gist.githubusercontent.com/brycemcd/c43f5a3250256cd65686/raw/.tmux.conf dest=/home/brycemcd/.tmux.comf
+
+    - git: repo=https://github.com/brycemcd/zshconf.git dest=/home/brycemcd/.zshconf
+
+    - user: name=brycemcd shell=/usr/bin/zsh groups=sudo,sysadmins,web append=yes
+      sudo: yes
+
+    - file: path=/home/brycemcd/.zshrc mode=0755 state=touch
+
+    - lineinfile: dest=/home/brycemcd/.zshrc state=present line='source "/home/brycemcd/.zshconf/zshrc"' insertafter=yes
+    - lineinfile: dest=/home/brycemcd/.zshrc state=present line='export PATH="/home/brycemcd/anaconda/bin:$PATH"' insertafter=yes
+
+    - file: path=/home/brycemcd/.zshconf/plugins state=directory mode=0755
+    - get_url: url=https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/plugins/git/git.plugin.zsh dest=/home/brycemcd/.zshconf/plugins/git.plugin.zsh
