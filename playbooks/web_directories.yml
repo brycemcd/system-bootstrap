@@ -1,0 +1,39 @@
+---
+- hosts: web-boostrap
+  user: brycemcd
+  sudo: yes
+  tasks:
+    #- file: path=/opt/sites state=directory mode=0755 owner=web group=web
+
+    #- name: checkout listicle backend
+      #git: repo=git@github.com:brycemcd/email-listicle-backend.git dest=/opt/sites/email-listicle-backend accept_hostkey=True
+      #become: yes
+      #become_user: web
+
+    #- name: install ruby build
+      #git: repo=https://github.com/rbenv/ruby-build.git dest=/usr/local/src/ruby-build
+    #- command: /usr/local/src/ruby-build/install.sh
+
+    - lineinfile: dest=/home/web/.zshrc line='eval "$(rbenv init -)"'
+      become: yes
+      become_user: web
+
+    - lineinfile: dest=/home/web/.zshrc line='PATH="$HOME/.rbenv/bin:$PATH"'
+      become: yes
+      become_user: web
+
+
+    #- command: source /home/web/.zshrc
+      #become: yes
+      #become_user: web
+
+    #- command: rbenv install 2.2.0
+      #become: yes
+      #become_user: web
+
+    - name: install gems
+      become: yes
+      become_user: web
+      command: bundle install chdir=/opt/sites/email-listicle-backend
+      args:
+

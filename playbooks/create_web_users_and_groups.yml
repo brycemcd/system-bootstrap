@@ -1,0 +1,6 @@
+- hosts: web-boostrap
+  user: brycemcd
+  sudo: yes
+  tasks:
+    - group: name=web state=present
+    - user: name=web comment="Used as unprivileged web user" group=web shell=/bin/zsh generate_ssh_key=yes ssh_key_bits=2048 ssh_key_file=.ssh/id_rsa

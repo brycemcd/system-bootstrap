@@ -1,0 +1,37 @@
+---
+- hosts: web-boostrap
+  user: brycemcd
+  sudo: yes
+  vars:
+    packages:
+      - curl
+      - git
+      - imagemagick
+      - libcurl4-openssl-dev
+      - libffi-dev
+      - libksba-dev
+      - libksba8
+      - libncurses5-dev
+      - libpq-dev
+      - libqtwebkit-dev
+      - libreadline-dev
+      - libreadline6-dev
+      - libssl-dev
+      - libxslt1-dev
+      - libyaml-dev
+      - openssl
+      - python-pip
+      - rbenv
+      - silversearcher-ag
+      - tmux
+      - vim
+      - watch
+      - zlib1g-dev
+      - zsh
+  tasks:
+    - name: install apt packages
+      apt: pkg={{item}} state=latest update_cache=no install_recommends=yes
+      with_items:
+        - "{{packages}}"
+#- include: create_web_users_and_groups.yml
+#- include: web_directories.yml
