@@ -3,7 +3,7 @@
   sudo: no
   tasks:
     - name: install tmux conf
-      get_url: url=https://gist.githubusercontent.com/brycemcd/c43f5a3250256cd65686/raw/.tmux.conf dest=/home/brycemcd/.tmux.comf
+      get_url: url=https://gist.githubusercontent.com/brycemcd/c43f5a3250256cd65686/raw/.tmux.conf dest=/home/brycemcd/.tmux.conf
 
     - git: repo=https://github.com/brycemcd/zshconf.git dest=/home/brycemcd/.zshconf
 
@@ -11,6 +11,7 @@
       sudo: yes
 
     - file: path=/home/brycemcd/.zshrc mode=0755 state=touch
+    - file: path=/home/brycemcd/.zshconf/private/private.zsh mode=0755 state=touch
 
     - lineinfile: dest=/home/brycemcd/.zshrc state=present line='source "/home/brycemcd/.zshconf/zshrc"' insertafter=yes
     - lineinfile: dest=/home/brycemcd/.zshrc state=present line='export PATH="/home/brycemcd/anaconda/bin:$PATH"' insertafter=yes
